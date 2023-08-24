@@ -4,6 +4,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from .models import *
 from .forms import *
@@ -133,7 +134,7 @@ class UserPassChange(View):
         pass
 
 ## APIView Version
-class IndexAPI(APIView):
+class IndexAPI(GenericAPIView):
     def get(self, request):
         pass
     def post(self, request):
@@ -141,23 +142,48 @@ class IndexAPI(APIView):
 
 
     
-class SigninAPI(APIView):
+class SigninAPI(GenericAPIView):
+    
+    queryset = User.objects.all()
+    serializer_class = SigninSerializer
+
     def get(self, request):
         pass
     def post(self, request):
-        pass 
+        serializer = SigninSerializer(data = request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response("회원가입에 성공했습니다.", status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class SignoutAPI(GenericAPIView):
 
-class SignoutAPI(APIView):
+    queryset = User.objects.all()
+    serializer_class = SignoutSerializer
+
     def get(self, request):
         pass
     def post(self, request):
-        pass 
+        user = request.user
+
+        serializer = SignoutSerializer(data=request.data, context={"user":user})
+        if serializer.is_valid():
+            user.is_active = False
+            user.save()
+            return Response("회원탈퇴되었습니다.")
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
-class LoginAPI(APIView):
+class LoginAPI(GenericAPIView):
+    
+    queryset = User.objects.all()
+    serializer_class = LoginSerializer
+
+    def get(self, request):
+        pass
     def post(self, request):
         serializer = LoginSerializer(data = request.data)
 
@@ -176,15 +202,19 @@ class LoginAPI(APIView):
 
 
 
-class LogoutAPI(APIView):
+class LogoutAPI(GenericAPIView):
     def get(self, request):
         pass
     def post(self, request):
-        pass 
+        pass
 
 
 
-class UserDetailAPI(APIView):
+class UserDetailAPI(GenericAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+
     def get(self, request):
         user = request.user
         serializer = ProfileSerializer(user)
@@ -201,14 +231,13 @@ class UserDetailAPI(APIView):
 
 
 
-class UserUpdateAPI(APIView):
+class UserUpdateAPI(GenericAPIView):
     def get(self, request):
         pass
     def post(self, request):
         pass 
 
 
-class UserPassChangeAPI(APIView):
     def get(self, request):
         pass
     def post(self, request):

@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-z22o3gtl&bqe5&3$0!yay1^+mm+jss%hk5at!qkq8b9x#(^65%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [ '*' ]
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -40,12 +40,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Python 패키지 
+    'drf_yasg',
     'rest_framework',
     'drf_spectacular',
     'rest_framework_simplejwt',
     'storages',
     'corsheaders',
-    'drf_yasg',
     # 커스텀 앱
     'users',
 ]
