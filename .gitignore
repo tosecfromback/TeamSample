@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
 ### Custom File
-작업진행_일정.md
+작업진행.md
 
 ### Django ###
 *.log
