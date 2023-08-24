@@ -10,10 +10,15 @@
   
   <a href="{% url 'users:signin' %}">회원가입</a>
   <a href="{% url 'users:detail' %}">프로필조회</a>
-  <a href="{% url 'users:detailAPI' %}">프로필API조회</a>
   <p>회원수정</p>
   <a href="{% url 'users:login' %}">로그인</a>
   <a href="{% url 'users:logout' %}">로그아웃</a>
   <p>비밀번호변경</p>
   <p>회원탈퇴</p>
+
+  <p>아래는 API테스트</p>
+  <a href="{% url 'users:SigninAPI' %}">회원가입API</a>
+  <a href="{% url 'users:LoginAPI' %}">로그인API</a>
+  <a href="{% url 'users:LogoutAPI' %}">로그아웃API</a>
+  <a href="{% url 'users:UserDetailAPI' %}">회원정보API</a>
 {% endblock content %}

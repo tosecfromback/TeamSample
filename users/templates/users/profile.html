@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p>{{ user.username }}님의 회원정보는</p>
+  <p>{{ user.name }}님의 회원정보는</p>
   <ul>
+    <li>
+      <p>유저 ID : {{ user.id }}</p>
+    </li>
     <li>
       <p>가입일 : {{ user.date_joined }}</p>
     </li>

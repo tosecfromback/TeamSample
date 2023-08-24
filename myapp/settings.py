@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'storages',
     'corsheaders',
+    'drf_yasg',
     # 커스텀 앱
     'users',
 ]

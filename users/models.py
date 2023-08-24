@@ -45,9 +45,10 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.username
+        return self.name
     
 class Profile(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE)
-    profileimg = models.ImageField(upload_to='media/def_img.jpg')
+    # profileimg = models.ImageField(upload_to='media/def_img.jpg')
+    profileimg = models.CharField(null=True, default='이미지가 등록되지 않았습니다.', max_length=100)
     create_at = models.DateTimeField(auto_now_add=True)

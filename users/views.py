@@ -4,7 +4,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.response import Response, responses
+from rest_framework.response import Response
 from .models import *
 from .forms import *
 from .serializers import *
@@ -17,7 +17,7 @@ class Index(View):
         context = {
             'title' : 'UserIndex'
         }
-        return render(request, 'users/index.html', context)
+        return render(request, 'users/APIList.html', context)
     def post(self, request):
         pass
 
@@ -110,7 +110,10 @@ class Logout(View):
 
 class UserDetail(View):
     def get(self, request):
-        pass
+        context = {
+            'title' : '프로필 조회'
+        }
+        return render(request, 'users/profile.html', context)
     def post(self, request):
         pass 
 
@@ -155,10 +158,21 @@ class SignoutAPI(APIView):
 
 
 class LoginAPI(APIView):
-    def get(self, request):
-        pass
     def post(self, request):
-        pass 
+        serializer = LoginSerializer(data = request.data)
+
+        if serializer.is_valid():
+            user = serializer.validated_data.get('user')
+            response = Response(
+                {
+                    "user" : { "id" : user.pk, "name" : user.name },
+                    "message" : "로그인 완료"
+                },
+                status = status.HTTP_200_OK
+            )
+            return response
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -172,9 +186,18 @@ class LogoutAPI(APIView):
 
 class UserDetailAPI(APIView):
     def get(self, request):
-        pass
+        user = request.user
+        serializer = ProfileSerializer(user)
+        return Response(serializer.data)
+    
     def post(self, request):
-        pass 
+        user = request.user
+        serializer = ProfileSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
