@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>현재 로그인된 사용자는 {{ user.name }} 님 입니다</p>
+  {% comment %}
+  <a href="{% url 'users:profile' %}">프로필조회</a>
+    
+  {% endcomment %}
+  <p>프로필 조회</p>
+  
+  <a href="{% url 'users:logout' %}">로그아웃</a>
+{% endblock content %}

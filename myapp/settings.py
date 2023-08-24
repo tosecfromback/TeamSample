@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+AUTH_USER_MODEL = 'users.User'
+
 
 # Application definition
 
@@ -37,13 +39,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # # Python 패키지 
-    # 'django',
-    # 'rest_framework',
-    # 'rest_framework_simplejwt'
-
-    # # 커스텀 앱
-    # 'users'
+    # Python 패키지 
+    'rest_framework',
+    'drf_spectacular',
+    'rest_framework_simplejwt',
+    'storages',
+    'corsheaders',
+    # 커스텀 앱
+    'users',
 ]
 
 MIDDLEWARE = [

@@ -7,11 +7,11 @@ class SigninForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = '__all__'
+        fields = [ 'name', 'email' ]
 
         
-class LoginForm(UserCreationForm):
+class LoginForm(AuthenticationForm):
     
     class Meta:
         model = User
-        fields = '__all__'
+        fields = [ 'name' ]

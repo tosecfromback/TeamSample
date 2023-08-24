@@ -2,11 +2,17 @@
 
 {% block content %}
   <p>UserIndexPage</p>
-  <p>회원가입</p>
+  {% if user.name != None %}
+    <p>현재 로그인된 사용자는 {{ user.name }} 님 입니다</p>
+  {% else %}
+    <p>현재 로그인 된 사용자가 없습니다.</p>
+  {% endif %}
+  
+  <a href="{% url 'users:signin' %}">회원가입</a>
   <p>회원정보</p>
   <p>회원수정</p>
-  <p>로그인</p>
-  <p>로그아웃</p>
+  <a href="{% url 'users:login' %}">로그인</a>
+  <a href="{% url 'users:logout' %}">로그아웃</a>
   <p>비밀번호변경</p>
   <p>회원탈퇴</p>
 {% endblock content %}
